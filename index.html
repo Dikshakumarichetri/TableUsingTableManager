@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+
+    <meta charset="utf-8">
+    <title>Filetring anf sorting a table </title>
+  <!-- <link rel="stylesheet"  href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css"> -->
+    <link rel="stylesheet" href="style.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="tablemanager.js"></script>
+<script src = "https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js">
+</script>
+  </head>
+  <body>
+<div class="container p-4">
+    <h1 class="heading">
+        Filter and pagination in javascript
+    </h1>
+<div class="filter-images">
+    <a href="#for_filter_by">
+    <i class="fa fa-filter"
+    style="
+    margin-right: 2px;
+    margin-left: -6px;"></i>
+</a>
+    <a href="#">
+
+    <i class="fa fa-filter-circle-xmark" style="margin-left: 2px;margin-top:3px;"></i>
+    </a>
+</div>
+<table class="tablemanager">
+    <thead>
+        <tr>
+            
+            <th>
+                Name
+            </th>
+            <th>
+                Location
+            </th>
+            <th>
+                Email
+            </th>
+<th>
+    Age
+</th>
+        </tr>
+    </thead>
+    <tbody id="body">
+
+    </tbody>
+</table>
+</div>
+  </body>
+  <script>
+    fetch("https://randomuser.me/api/?results=200")
+    .then((res) =>res.json())
+    .then((data)=>
+    {
+console.log(data)
+data.results.forEach((user)=> {
+    $("#body").append(`
+    <tr>
+
+        <td>${user.name.first}</td>
+        <td>${user.location.country}</td>
+        <td>${user.email}</td>
+        <td>${user.dob.age}</td>
+
+
+
+        </tr>
+        `)
+    
+});
+$(".tablemanager").tablemanager({
+
+            firstSort: [[3,0],[2,0],[1,'asc']],
+			disable: ["last"],
+			appendFilterby: true,
+			dateFormat: [[4,"dd-mm-yyyy"]],
+			debug: true,
+			vocabulary: {
+                voc_filter_by: 'Filter By',
+			voc_type_here_filter: 'Filter...',
+    	voc_show_rows: 'Rows Per Page '
+			
+			},
+			pagination: true,
+			showrows: [10,20,25,50],
+
+})
+    })
+  </script>
+</html>
